@@ -7,5 +7,5 @@ yay -S stow
 ## Use
 # Clone repo
 ```
-giCreate README.md
+git clone git@github.com:ncastellanosort/dotfiles.git
 ```
