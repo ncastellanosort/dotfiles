@@ -19,7 +19,15 @@ Use GNU Stow to create symlinks
 ```
 stow .
 ```
+Add dotfile
+```
+cp -r ~/.config/dotfile ~/dotfiles
+```
 Warning problem
 ```
 stow --adopt .
+```
+View symlinks
+```
+ls -lah ~/
 ```
