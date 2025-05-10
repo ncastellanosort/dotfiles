@@ -1,54 +1,53 @@
-// -*- mode: jsonc -*-
 {
-    // "layer": "top", // Waybar at top layer
-    "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 25, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
-    // Choose the order of the modules
-    "modules-left": [
-        "hyprland/workspaces",
-    ],
-    "modules-center": [
-    ],
-    "modules-right": [
-        "memory",
-        "pulseaudio",
-        "network",
-        "battery",
-        "clock",
-        "custom/power"
-    ],
-    // Modules configuration
-     "hyprland/workspaces": {
-         "disable-scroll": true,
-         "all-outputs": true,
-         "warp-on-scroll": false,
-         "format": "{name}: {icon}",
-         "format-icons": {
-             "urgent": "!",
-             "active": "*",
-             "default": ""
-         }
-     },
+    "layer": "top",
+    "position": "bottom",
+    "height": 24,
+    "spacing": 5,
+
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["memory", "pulseaudio", "network", "battery", "bluetooth", "tray", "custom/power"],
+
+    "hyprland/workspaces": {
+        "format": "<span size='larger'>{icon}</span>",
+        "on-click": "activate",
+        "format-icons": {
+            "active": "\uf444",
+            "default": "\uf4c3"
+        },
+        "icon-size": 10,
+        "sort-by-number": true,
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+        }
+    },
+
     "clock": {
-        // "timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format": "{:%d/%m/%Y | %H:%M}"
     },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
+
+    "pulseaudio": {
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
     },
-    "memory": {
-    //
-        "format": "RAM {}%" 
-    },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
-    },
+
     "battery": {
         "states": {
             // "good": 95,
@@ -67,8 +66,14 @@
     "battery#bat2": {
         "bat": "BAT2"
     },
+
+    "memory": {
+        "interval": 5,
+        "format": "RAM {used:0.1f}G",
+        "on-click": "kitty -e btop"
+    },
+
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
@@ -77,25 +82,22 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "on-click": "kitty -e nmtui"
     },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
+
+    "bluetooth": {
+        "format": "\udb80\udcaf",
+        "format-disabled": "\udb80\udcb2",
+        "format-connected": "\udb80\udcb1",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "on-click": "blueman-manager" 
     },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 16
+    },
+
     "custom/power": {
         "format" : "⏻ ",
 		"tooltip": false,
@@ -108,4 +110,5 @@
 			"hibernate": "systemctl hibernate"
 		}
     }
+
 }

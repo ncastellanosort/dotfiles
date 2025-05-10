@@ -1,53 +1,37 @@
+@define-color foreground #eeeeee;
+@define-color foreground-inactive #aaaaaa;
+@define-color background #000000;
+
 * {
-  border: none;
-  border-radius: 0;
-  font-family: "JetBrainsMono Medium", monospace;
-  font-size: 13px;
-  min-height: 0;
-  color: #ffffff;
-  background: transparent;
+    font-family: "JetBrainsMono Medium", monospace;
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
 }
 
-window#waybar {
-  background-color: #000000;
-  color: #ffffff;
+#waybar {
+    color: @foreground;
+    background-color: @background;
 }
 
 #workspaces button {
-  color: #ffffff;
-  background: #000000;
-  border: none;
-  padding: 0 5px;
+    color: @foreground;
+    background: #000000;
+    border: none;
 }
 
-#workspaces button.focused {
-  background: #ffffff;
-  color: #000000;
+#workspaces button.empty {
+    color: @foreground-inactive;
 }
 
-#pulseaudio,
-#network,
-#clock,
-#battery,
-#tray,
-#idle_inhibitor,
-#custom-power,
-#custom-power,
-#mpd,
 #memory,
-#power-profiles-daemon,
-#custom-powermenu,
+#battery,
+#network,
+#bluetooth,
+
 #custom__power {
   padding: 0 8px;
   background: #000000;
-  color: #ffffff;
-}
-
-#battery.warning {
-  color: #ffffff;
-}
-
-#battery.critical {
   color: #ffffff;
 }
 
@@ -58,10 +42,16 @@ tooltip {
 }
 
 menu {
-	border-radius: 0px;
+  border: 1px solid #ffffff;
+	border-radius: 5px;
 	background: #000000;
 	color: #ffffff;
 }
+
 menuitem {
 	border-radius: 0px;
+}
+
+menuitem:hover {
+  background: #000000;
 }
