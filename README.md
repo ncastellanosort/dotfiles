@@ -1,13 +1,25 @@
-# Requirements
+# My dotfiles
 
-## Stow
+Contains dotfiles for my system
+
+## Requirements
+
+### Stow
 ```
 yay -S stow
 ```
 ## Use
-# Clone repo
+
+First clone the repo
 ```
 git clone git@github.com:ncastellanosort/dotfiles.git
 cd dotfiles
 ```
-# Use gnu Stow to create symlinks
+Use GNU Stow to create symlinks
+```
+stow .
+```
+Warning problem
+```
+stow --adopt .
+```
