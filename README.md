@@ -1,6 +1,6 @@
 # Requirements
 
-## stow
+## Stow
 ```
 yay -S stow
 ```
@@ -8,4 +8,6 @@ yay -S stow
 # Clone repo
 ```
 git clone git@github.com:ncastellanosort/dotfiles.git
+cd dotfiles
 ```
+# Use gnu Stow to create symlinks
