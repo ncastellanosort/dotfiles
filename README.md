@@ -23,3 +23,7 @@ Warning problem
 ```
 stow --adopt .
 ```
+View symlinks
+```
+ls -lah ~/
+```
