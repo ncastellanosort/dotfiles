@@ -1,0 +1,57 @@
+@define-color foreground #eeeeee;
+@define-color foreground-inactive #aaaaaa;
+@define-color background #000000;
+
+* {
+    font-family: "JetBrainsMono Medium", monospace;
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+}
+
+#waybar {
+    color: @foreground;
+    background-color: @background;
+}
+
+#workspaces button {
+    color: @foreground;
+    background: #000000;
+    border: none;
+}
+
+#workspaces button.empty {
+    color: @foreground-inactive;
+}
+
+#memory,
+#battery,
+#network,
+#bluetooth,
+
+#custom__power {
+  padding: 0 8px;
+  background: #000000;
+  color: #ffffff;
+}
+
+tooltip {
+  background: #000000;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+menu {
+  border: 1px solid #ffffff;
+	border-radius: 5px;
+	background: #000000;
+	color: #ffffff;
+}
+
+menuitem {
+	border-radius: 0px;
+}
+
+menuitem:hover {
+  background: #000000;
+}
