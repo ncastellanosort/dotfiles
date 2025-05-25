@@ -166,6 +166,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<leader>i", vim.lsp.buf.code_action, { noremap = true, silent = true })
 vim.keymap.set("v", "<leader>y", "\"+y")
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float() end, opts)
 
 -- Harpoon keybindings
 local harpoon = require("harpoon")
