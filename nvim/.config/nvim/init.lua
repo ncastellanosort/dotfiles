@@ -36,7 +36,7 @@ require("lazy").setup({
       require("nvim-treesitter.configs").setup {
         ensure_installed = {
           "javascript", "typescript", "vue", "python", "html", "c",
-          "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go"
+          "lua", "rust", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go"
         },
         sync_install = false,
         auto_install = true,

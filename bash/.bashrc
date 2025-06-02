@@ -20,3 +20,4 @@ export POSH_THEME="$HOME/.poshthemes/themes/robbyrussell.omp.json"
 export HYPRSHOT_DIR="$HOME/Pictures"
 export TERM=tmux-256color
 
+. "$HOME/.cargo/env"
