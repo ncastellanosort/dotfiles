@@ -41,8 +41,7 @@ require("lazy").setup({
         sync_install = false,
         auto_install = true,
         highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false
+          enable = false,
         }
       }
     end
@@ -51,6 +50,7 @@ require("lazy").setup({
   -- Fugitive
   { "tpope/vim-fugitive" },
 
+  --[[
   -- Rose pine
   {
     "rose-pine/neovim",
@@ -74,6 +74,7 @@ require("lazy").setup({
       vim.cmd("colorscheme rose-pine")
     end
   },
+  ]]
 
   -- LSP config
   { "neovim/nvim-lspconfig" },
@@ -137,6 +138,29 @@ require("lazy").setup({
     end
   },
 })
+
+-- ?
+vim.cmd("syntax off")
+vim.cmd("hi Normal guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi Comment guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi Constant guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi Identifier guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi Statement guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi PreProc guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi Type guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi Special guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi Underlined guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi Todo guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi String guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi Function guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi StatusLine guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi StatusLineNC guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi CursorLine guibg=#2b2b2b")
+vim.cmd("hi CursorLineNr guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi SignColumn guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi ModeMsg guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi MsgArea guifg=#e0e0e0 guibg=#2b2b2b")
+vim.cmd("hi VertSplit guifg=#e0e0e0 guibg=#2b2b2b")
 
 -- Vim settings
 vim.opt.guicursor = ""
