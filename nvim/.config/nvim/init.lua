@@ -28,53 +28,8 @@ require("lazy").setup({
     end
   },
 
-  -- Treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup {
-        ensure_installed = {
-          "javascript", "typescript", "vue", "python", "html", "c",
-          "lua", "rust", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go"
-        },
-        sync_install = false,
-        auto_install = true,
-        highlight = {
-          enable = false,
-        }
-      }
-    end
-  },
-
   -- Fugitive
   { "tpope/vim-fugitive" },
-
-  --[[
-  -- Rose pine
-  {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    config = function()
-      require("rose-pine").setup({
-        variant = "main",
-        dark_variant = "main",
-        extend_background_behind_borders = true,
-        enable = {
-          terminal = true,
-          legacy_highlights = true,
-          migrations = true,
-        },
-        styles = {
-          bold = true,
-          italic = false,
-          transparency = true,
-        }
-      })
-      vim.cmd("colorscheme rose-pine")
-    end
-  },
-  ]]
 
   -- LSP config
   { "neovim/nvim-lspconfig" },
@@ -139,30 +94,16 @@ require("lazy").setup({
   },
 })
 
--- ?
-vim.cmd("syntax off")
-vim.cmd("hi Normal guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi Comment guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi Constant guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi Identifier guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi Statement guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi PreProc guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi Type guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi Special guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi Underlined guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi Todo guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi String guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi Function guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi StatusLine guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi StatusLineNC guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi CursorLine guibg=#14161A")
-vim.cmd("hi CursorLineNr guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi SignColumn guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi ModeMsg guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi MsgArea guifg=#e0e0e0 guibg=#14161A")
-vim.cmd("hi VertSplit guifg=#e0e0e0 guibg=#14161A")
+-- Theme
+vim.cmd.colorscheme("lunaperche")
+vim.cmd [[
+  hi Normal ctermbg=NONE guibg=NONE
+  hi NormalNC ctermbg=NONE guibg=NONE
+]]
 
 -- Vim settings
+vim.opt.laststatus = 0
+vim.opt.statusline = ""
 vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
