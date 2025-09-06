@@ -95,11 +95,7 @@ require("lazy").setup({
 })
 
 -- Theme
-vim.cmd.colorscheme("lunaperche")
-vim.cmd [[
-  hi Normal ctermbg=NONE guibg=NONE
-  hi NormalNC ctermbg=NONE guibg=NONE
-]]
+vim.cmd.colorscheme("torte")
 
 -- Vim settings
 vim.opt.laststatus = 0
