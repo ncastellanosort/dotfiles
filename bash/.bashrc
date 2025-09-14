@@ -23,3 +23,7 @@ export TERM=tmux-256color
 # Created by `pipx` on 2025-08-17 16:45:22
 export PATH="$PATH:/home/nicolas/.local/bin"
 
+if command -v oh-my-posh >/dev/null 2>&1; then
+    eval "$(oh-my-posh init bash --config ~/.poshthemes/robbyrussell.omp.json)"
+fi
+
