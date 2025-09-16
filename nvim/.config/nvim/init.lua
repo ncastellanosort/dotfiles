@@ -47,19 +47,42 @@ require("lazy").setup({
       })
 
       local lspconfig = require("lspconfig")
+
+      -- TypeScript / JavaScript
       lspconfig.ts_ls.setup({
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
         init_options = { provideFormatter = false },
       })
 
+      -- ESLint
       lspconfig.eslint.setup({ settings = { format = true } })
 
-      for _, server in ipairs({ "pyright", "gopls", "clangd", "rust_analyzer", "html", "tailwindcss" }) do
+      -- TailwindCSS (con soporte para .jsx y .tsx)
+      lspconfig.tailwindcss.setup({
+        filetypes = {
+          "html", "css", "javascript", "javascriptreact",
+          "typescript", "typescriptreact", "vue", "svelte", "astro"
+        },
+        init_options = {
+          userLanguages = {
+            eelixir = "html-eex",
+            eruby = "erb",
+            javascript = "javascript",
+            javascriptreact = "javascriptreact",
+            typescript = "typescript",
+            typescriptreact = "typescriptreact",
+          },
+        },
+      })
+
+      -- Otros LSPs
+      for _, server in ipairs({ "pyright", "gopls", "clangd", "rust_analyzer", "html" }) do
         lspconfig[server].setup({})
       end
     end
   },
 
+  -- Autocompletado
   { "hrsh7th/nvim-cmp" },
   { "hrsh7th/cmp-nvim-lsp" },
   { "hrsh7th/cmp-buffer" },
@@ -127,7 +150,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<leader>i", vim.lsp.buf.code_action, { noremap = true, silent = true })
 vim.keymap.set("v", "<leader>y", "\"+y")
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float() end, opts)
+vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float() end)
 
 -- Harpoon keybindings
 local harpoon = require("harpoon")
