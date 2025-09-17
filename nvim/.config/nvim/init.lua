@@ -27,6 +27,49 @@ require("lazy").setup({
       require("harpoon").setup()
     end
   },
+  
+  -- Treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup {
+        ensure_installed = {
+          "javascript", "typescript", "vue", "python", "html", "c",
+          "lua", "rust", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go"
+        },
+        sync_install = false,
+        auto_install = true,
+        highlight = {
+          enable = true,
+        }
+      }
+    end
+  },
+
+  -- Rose pine
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      require("rose-pine").setup({
+        variant = "moon",
+        dark_variant = "moon",
+        extend_background_behind_borders = true,
+        enable = {
+          terminal = true,
+          legacy_highlights = true,
+          migrations = true,
+        },
+        styles = {
+          bold = true,
+          italic = false,
+          transparency = true,
+        }
+      })
+      vim.cmd("colorscheme rose-pine")
+    end
+  },
 
   -- Fugitive
   { "tpope/vim-fugitive" },
@@ -48,7 +91,6 @@ require("lazy").setup({
 
       local lspconfig = require("lspconfig")
 
-      -- TypeScript / JavaScript
       lspconfig.ts_ls.setup({
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
         init_options = { provideFormatter = false },
@@ -57,7 +99,6 @@ require("lazy").setup({
       -- ESLint
       lspconfig.eslint.setup({ settings = { format = true } })
 
-      -- TailwindCSS (con soporte para .jsx y .tsx)
       lspconfig.tailwindcss.setup({
         filetypes = {
           "html", "css", "javascript", "javascriptreact",
@@ -75,14 +116,14 @@ require("lazy").setup({
         },
       })
 
-      -- Otros LSPs
+      -- Other LSPs
       for _, server in ipairs({ "pyright", "gopls", "clangd", "rust_analyzer", "html" }) do
         lspconfig[server].setup({})
       end
     end
   },
 
-  -- Autocompletado
+  -- Autocomplete
   { "hrsh7th/nvim-cmp" },
   { "hrsh7th/cmp-nvim-lsp" },
   { "hrsh7th/cmp-buffer" },
@@ -117,12 +158,7 @@ require("lazy").setup({
   },
 })
 
--- Theme
-vim.cmd.colorscheme("torte")
-
 -- Vim settings
-vim.opt.laststatus = 0
-vim.opt.statusline = ""
 vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
