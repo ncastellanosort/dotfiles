@@ -89,17 +89,23 @@ require("lazy").setup({
         automatic_installation = true,
       })
 
-      local lspconfig = require("lspconfig")
+      local lsp = vim.lsp
 
-      lspconfig.ts_ls.setup({
+      -- TypeScript
+      lsp.config["ts_ls"] = {
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
         init_options = { provideFormatter = false },
-      })
+      }
+      lsp.enable("ts_ls")
 
       -- ESLint
-      lspconfig.eslint.setup({ settings = { format = true } })
+      lsp.config["eslint"] = {
+        settings = { format = true },
+      }
+      lsp.enable("eslint")
 
-      lspconfig.tailwindcss.setup({
+      -- Tailwind
+      lsp.config["tailwindcss"] = {
         filetypes = {
           "html", "css", "javascript", "javascriptreact",
           "typescript", "typescriptreact", "vue", "svelte", "astro"
@@ -114,11 +120,11 @@ require("lazy").setup({
             typescriptreact = "typescriptreact",
           },
         },
-      })
+      }
+      lsp.enable("tailwindcss")
 
-      -- Other LSPs
       for _, server in ipairs({ "pyright", "gopls", "clangd", "rust_analyzer", "html" }) do
-        lspconfig[server].setup({})
+        lsp.enable(server)
       end
     end
   },
