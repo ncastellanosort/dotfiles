@@ -27,7 +27,7 @@ require("lazy").setup({
       require("harpoon").setup()
     end
   },
-  
+
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
@@ -48,28 +48,26 @@ require("lazy").setup({
   },
 
   -- Rose pine
-  {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    config = function()
-      require("rose-pine").setup({
-        variant = "moon",
-        dark_variant = "moon",
-        extend_background_behind_borders = true,
-        enable = {
-          terminal = true,
-          legacy_highlights = true,
-          migrations = true,
-        },
-        styles = {
-          bold = true,
-          italic = false,
-          transparency = true,
-        }
-      })
-      vim.cmd("colorscheme rose-pine")
-    end
-  },
+  { "rose-pine/neovim",
+  name = "rose-pine",
+  config = function() 
+    require("rose-pine").setup({ 
+     variant = "main",
+     dark_variant = "main",
+     extend_background_behind_borders = true,
+     enable = {
+       terminal = true,
+       legacy_highlights = true,
+       migrations = true,
+     },
+     styles = {
+       bold = true,
+       italic = false,
+       transparency = true,
+     }
+   }) 
+   vim.cmd("colorscheme rose-pine") 
+  end },
 
   -- Fugitive
   { "tpope/vim-fugitive" },
