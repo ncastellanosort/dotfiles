@@ -17,3 +17,10 @@ fi
 if command -v oh-my-posh >/dev/null 2>&1; then
   eval "$(oh-my-posh init zsh --config ~/.poshthemes/robbyrussell.omp.json)"
 fi
+
+if command -v tmux &>/dev/null; then
+  if [[ -z "$TMUX" ]] && [[ -z "$INSIDE_TMUX" ]]; then
+    export INSIDE_TMUX=1
+    exec tmux
+  fi
+fi
