@@ -191,6 +191,13 @@ vim.keymap.set("n", "<leader>i", vim.lsp.buf.code_action, { noremap = true, sile
 vim.keymap.set("v", "<leader>y", "\"+y")
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float() end)
+vim.diagnostic.config({
+  virtual_text = true,  
+  signs = true,        
+  underline = true,    
+  update_in_insert = false, 
+})
+
 
 -- Harpoon keybindings
 local harpoon = require("harpoon")
@@ -204,5 +211,7 @@ vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end)
 -- Telescope keybindings
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files)
+
+-- Git status
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
 
