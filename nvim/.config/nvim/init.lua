@@ -80,6 +80,7 @@ require("lazy").setup({
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "jdtls",  -- Agregado para Java
           "ts_ls", "vue_ls", "eslint",
           "pyright", "gopls", "clangd",
           "rust_analyzer", "html", "tailwindcss"
@@ -125,6 +126,96 @@ require("lazy").setup({
         lsp.enable(server)
       end
     end
+  },
+
+  -- Java LSP (jdtls)
+  {
+    "mfussenegger/nvim-jdtls",
+    ft = "java",
+    config = function()
+      local jdtls = require("jdtls")
+      
+      local jdtls_path = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
+      local workspace_dir = vim.fn.stdpath("cache") .. "/jdtls-workspace/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+      
+      local config = {
+        cmd = {
+          "/usr/lib/jvm/java-21-openjdk/bin/java",
+          "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+          "-Dosgi.bundles.defaultStartLevel=4",
+          "-Declipse.product=org.eclipse.jdt.ls.core.product",
+          "-Dlog.protocol=true",
+          "-Dlog.level=ALL",
+          "-Xmx1g",
+          "--add-modules=ALL-SYSTEM",
+          "--add-opens", "java.base/java.util=ALL-UNNAMED",
+          "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+          "-jar", vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
+          "-configuration", jdtls_path .. "/config_linux",
+          "-data", workspace_dir,
+        },
+        
+        root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }),
+        
+        settings = {
+          java = {
+            configuration = {
+              runtimes = {
+                {
+                  name = "JavaSE-1.8",
+                  path = "/usr/lib/jvm/java-8-openjdk", 
+                  default = true,
+                },
+                {
+                  name = "JavaSE-21",
+                  path = "/usr/lib/jvm/java-21-openjdk",
+                },
+              },
+            },
+            
+            maven = {
+              downloadSources = true,
+            },
+            
+            implementationsCodeLens = {
+              enabled = true,
+            },
+            referencesCodeLens = {
+              enabled = true,
+            },
+            
+            format = {
+              enabled = true,
+            },
+            
+            imports = {
+              gradle = {
+                enabled = true,
+              },
+              maven = {
+                enabled = true,
+              },
+            },
+          },
+        },
+        
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        
+        init_options = {
+          bundles = {},
+        },
+      }
+      
+      jdtls.start_or_attach(config)
+      
+      local opts = { noremap = true, silent = true, buffer = true }
+      vim.keymap.set("n", "<leader>co", jdtls.organize_imports, opts)
+      vim.keymap.set("n", "<leader>cv", jdtls.extract_variable, opts)
+      vim.keymap.set("v", "<leader>cv", [[<ESC><CMD>lua require('jdtls').extract_variable(true)<CR>]], opts)
+      vim.keymap.set("n", "<leader>cc", jdtls.extract_constant, opts)
+      vim.keymap.set("v", "<leader>cc", [[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]], opts)
+      vim.keymap.set("v", "<leader>cm", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], opts)
+    end,
   },
 
   -- Autocomplete
@@ -198,7 +289,6 @@ vim.diagnostic.config({
   update_in_insert = false, 
 })
 
-
 -- Harpoon keybindings
 local harpoon = require("harpoon")
 vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
@@ -214,4 +304,3 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files)
 
 -- Git status
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
-
