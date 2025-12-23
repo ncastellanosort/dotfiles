@@ -1,0 +1,8 @@
+show=drun
+prompt=Buscar
+width=500
+height=300
+lines=8
+location=center
+allow_images=false
+insensitive=true

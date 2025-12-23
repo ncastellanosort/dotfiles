@@ -1,6 +1,6 @@
 #!/bin/bash
-
 set -euo pipefail
+
 if [[ "$EUID" -ne 0 ]]; then
   echo "Please run as root"
   exit 1
@@ -8,19 +8,27 @@ fi
 
 before_cache=$(du -sh /var/cache/pacman/pkg | cut -f1)
 
-paccache -ruk3
+# Mantiene solo los últimos 3 paquetes
+paccache -ruk3 || true
 
-if command -v yay &> /dev/null; then
-  yay -Sc --noconfirm > /dev/null
+# Limpia descargas incompletas de pacman
+rm -rf /var/cache/pacman/pkg/download-* || true
+
+# Limpieza AUR (si existe yay)
+if command -v yay &>/dev/null; then
+  yay -Sc --noconfirm || true
 fi
 
-rm -rf /tmp/* /var/tmp/*
+# NO tocar /tmp
+rm -rf /var/tmp/* || true
 
-journalctl --vacuum-time=7d > /dev/null
+# Limpiar journals
+journalctl --vacuum-time=7d >/dev/null || true
 
-if [[ ${SUDO_USER:-} ]]; then
+# Cache de thumbnails del usuario sudo
+if [[ -n "${SUDO_USER:-}" ]]; then
   user_home=$(getent passwd "$SUDO_USER" | cut -d: -f6)
-  rm -rf "$user_home/.cache/thumbnails/"*
+  rm -rf "$user_home/.cache/thumbnails/"* 2>/dev/null || true
 fi
 
 after_cache=$(du -sh /var/cache/pacman/pkg | cut -f1)
@@ -28,3 +36,4 @@ after_cache=$(du -sh /var/cache/pacman/pkg | cut -f1)
 echo "Pacman cache before: $before_cache"
 echo "Pacman cache after:  $after_cache"
 echo "Cleanup complete."
+
