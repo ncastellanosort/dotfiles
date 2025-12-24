@@ -16,6 +16,43 @@ require("lazy").setup({
     "nvim-telescope/telescope.nvim",
     tag = "0.1.8",
     dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("telescope").setup({
+        defaults = {
+          -- Deshabilita treesitter en el preview
+          buffer_previewer_maker = function(filepath, bufnr, opts)
+            opts = opts or {}
+            
+            vim.loop.fs_open(filepath, "r", 438, function(err, fd)
+              if err then return end
+              vim.loop.fs_fstat(fd, function(err, stat)
+                if err then return end
+                if stat.size > 100000 then
+                  vim.schedule(function()
+                    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, {"File too large"})
+                  end)
+                else
+                  vim.loop.fs_read(fd, stat.size, 0, function(err, data)
+                    if err then return end
+                    vim.schedule(function()
+                      vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(data, "\n"))
+                      pcall(vim.api.nvim_buf_call, bufnr, function()
+                        local ft = vim.filetype.match({ buf = bufnr, filename = filepath })
+                        if ft then
+                          vim.bo[bufnr].filetype = ft
+                          vim.bo[bufnr].syntax = ft
+                        end
+                      end)
+                    end)
+                    vim.loop.fs_close(fd)
+                  end)
+                end
+              end)
+            end)
+          end,
+        },
+      })
+    end,
   },
 
   -- Harpoon
