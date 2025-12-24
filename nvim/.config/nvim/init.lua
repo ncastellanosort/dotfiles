@@ -86,7 +86,7 @@ require("lazy").setup({
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "jdtls",  -- Agregado para Java
+          "jdtls",  
           "ts_ls", "vue_ls", "eslint",
           "pyright", "gopls", "clangd",
           "rust_analyzer", "html", "tailwindcss"
