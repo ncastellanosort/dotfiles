@@ -19,7 +19,6 @@ require("lazy").setup({
     config = function()
       require("telescope").setup({
         defaults = {
-          -- Deshabilita treesitter en el preview
           buffer_previewer_maker = function(filepath, bufnr, opts)
             opts = opts or {}
             
