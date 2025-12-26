@@ -28,30 +28,43 @@
 #battery,
 #network,
 #bluetooth,
-
 #custom__power {
-  padding: 0 8px;
-  background: #000000;
-  color: #ffffff;
+    padding: 0 8px;
+    background: #000000;
+    color: #ffffff;
 }
 
 tooltip {
-  background: #000000;
-  color: #ffffff;
-  border: 1px solid #ffffff;
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    padding: 10px;
 }
 
 menu {
-  border: 1px solid #ffffff;
-	border-radius: 5px;
-	background: #000000;
-	color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    background: #000000;
+    color: #ffffff;
+    padding: 10px;
+    margin: 0;
 }
 
 menuitem {
-	border-radius: 0px;
+    border-radius: 0px;
+    padding: 6px 10px;
+    margin: 2px 0;
+    background: #000000;
+    color: #ffffff;
 }
 
 menuitem:hover {
-  background: #000000;
+    background: #ffffff;
+    color: #000000;
+}
+
+menuitem:selected {
+    background: #ffffff;
+    color: #000000;
 }
