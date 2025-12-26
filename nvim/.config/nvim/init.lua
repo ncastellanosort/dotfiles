@@ -94,8 +94,8 @@ require("lazy").setup({
   name = "rose-pine",
   config = function() 
     require("rose-pine").setup({ 
-     variant = "main",
-     dark_variant = "main",
+     variant = "moon",
+     dark_variant = "moon",
      extend_background_behind_borders = true,
      enable = {
        terminal = true,
