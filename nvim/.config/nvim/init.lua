@@ -343,6 +343,8 @@ vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end)
 -- Telescope keybindings
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files)
+vim.keymap.set('n', '<leader>gf', builtin.git_files)
+vim.keymap.set('n', '<leader>fw', builtin.live_grep)
 
 -- Git status
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
