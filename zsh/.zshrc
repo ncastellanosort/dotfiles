@@ -112,3 +112,4 @@ fi
 alias liti="xfreerdp3 /v:127.0.0.1:56789 /u:NICOLAS_DEV /f /toggle-fullscreen"
 alias u="yay -Syu --noconfirm"
 alias vim="nvim"
+alias cat="bat"
