@@ -1,13 +1,13 @@
 -- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+  local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
+      { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
+      { out, 'WarningMsg' },
+      { '\nPress any key to exit...' },
     }, true, {})
     vim.fn.getchar()
     os.exit(1)
@@ -15,7 +15,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
+require('lazy').setup({
   -- Telescope
   {
     'nvim-telescope/telescope.nvim', tag = 'v0.2.0',
@@ -24,22 +24,22 @@ require("lazy").setup({
 
   -- Harpoon
   {
-    "ThePrimeagen/harpoon",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    'ThePrimeagen/harpoon',
+    dependencies = { 'nvim-lua/plenary.nvim' },
   },
 
   -- Treesitter
   {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
     lazy = false,
   },
 
   -- Rose pine
-  { "rose-pine/neovim",
-  name = "rose-pine",
+  { 'rose-pine/neovim',
+  name = 'rose-pine',
   config = function() 
-    require("rose-pine").setup({ 
+    require('rose-pine').setup({ 
      extend_background_behind_borders = true,
      enable = {
        terminal = true,
@@ -51,69 +51,69 @@ require("lazy").setup({
        transparency = true,
      }
    }) 
-   vim.cmd("colorscheme rose-pine") 
+   vim.cmd('colorscheme rose-pine') 
   end },
 
   -- Fugitive
-  { "tpope/vim-fugitive" },
+  { 'tpope/vim-fugitive' },
 
   -- Mason
   {
-    "mason-org/mason.nvim",
+    'mason-org/mason.nvim',
     opts = {}
   },
 
   -- Mason LSP config
   {
-    "mason-org/mason-lspconfig.nvim",
+    'mason-org/mason-lspconfig.nvim',
     opts = {},
     dependencies = {
-        { "mason-org/mason.nvim", opts = {} },
-        "neovim/nvim-lspconfig",
+        { 'mason-org/mason.nvim', opts = {} },
+        'neovim/nvim-lspconfig',
     },
   },
 
   -- Java LSP (jdtls)
   {
-    "mfussenegger/nvim-jdtls",
-    ft = "java",
+    'mfussenegger/nvim-jdtls',
+    ft = 'java',
     config = function()
-      local jdtls = require("jdtls")
+      local jdtls = require('jdtls')
       
-      local jdtls_path = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
-      local workspace_dir = vim.fn.stdpath("cache") .. "/jdtls-workspace/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+      local jdtls_path = vim.fn.stdpath('data') .. '/mason/packages/jdtls'
+      local workspace_dir = vim.fn.stdpath('cache') .. '/jdtls-workspace/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
       
       local config = {
         cmd = {
-          "/usr/lib/jvm/java-21-openjdk/bin/java",
-          "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-          "-Dosgi.bundles.defaultStartLevel=4",
-          "-Declipse.product=org.eclipse.jdt.ls.core.product",
-          "-Dlog.protocol=true",
-          "-Dlog.level=ALL",
-          "-Xmx1g",
-          "--add-modules=ALL-SYSTEM",
-          "--add-opens", "java.base/java.util=ALL-UNNAMED",
-          "--add-opens", "java.base/java.lang=ALL-UNNAMED",
-          "-jar", vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
-          "-configuration", jdtls_path .. "/config_linux",
-          "-data", workspace_dir,
+          '/usr/lib/jvm/java-21-openjdk/bin/java',
+          '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+          '-Dosgi.bundles.defaultStartLevel=4',
+          '-Declipse.product=org.eclipse.jdt.ls.core.product',
+          '-Dlog.protocol=true',
+          '-Dlog.level=ALL',
+          '-Xmx1g',
+          '--add-modules=ALL-SYSTEM',
+          '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+          '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+          '-jar', vim.fn.glob(jdtls_path .. '/plugins/org.eclipse.equinox.launcher_*.jar'),
+          '-configuration', jdtls_path .. '/config_linux',
+          '-data', workspace_dir,
         },
         
-        root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }),
+        root_dir = require('jdtls.setup').find_root({ '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' }),
         
         settings = {
           java = {
             configuration = {
               runtimes = {
                 {
-                  name = "JavaSE-1.8",
-                  path = "/usr/lib/jvm/java-8-openjdk", 
+                  name = 'JavaSE-1.8',
+                  path = '/usr/lib/jvm/java-8-openjdk', 
                   default = true,
                 },
                 {
-                  name = "JavaSE-21",
-                  path = "/usr/lib/jvm/java-21-openjdk",
+                  name = 'JavaSE-21',
+                  path = '/usr/lib/jvm/java-21-openjdk',
                 },
               },
             },
@@ -144,7 +144,7 @@ require("lazy").setup({
           },
         },
         
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
         
         init_options = {
           bundles = {},
@@ -158,22 +158,22 @@ require("lazy").setup({
   },
 
   -- Autocomplete
-  { "hrsh7th/nvim-cmp" },
-  { "hrsh7th/cmp-nvim-lsp" },
-  { "hrsh7th/cmp-buffer" },
-  { "hrsh7th/cmp-path" },
-  { "saadparwaiz1/cmp_luasnip" },
-  { "L3MON4D3/LuaSnip" },
-  { "onsails/lspkind-nvim" },
+  { 'hrsh7th/nvim-cmp' },
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-path' },
+  { 'saadparwaiz1/cmp_luasnip' },
+  { 'L3MON4D3/LuaSnip' },
+  { 'onsails/lspkind-nvim' },
 
   {
-    "hrsh7th/nvim-cmp",
+    'hrsh7th/nvim-cmp',
     config = function()
-      local cmp = require("cmp")
+      local cmp = require('cmp')
       cmp.setup({
         snippet = {
           expand = function(args)
-            require("luasnip").lsp_expand(args.body)
+            require('luasnip').lsp_expand(args.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
@@ -193,7 +193,7 @@ require("lazy").setup({
 })
 
 -- Vim settings
-vim.opt.guicursor = ""
+vim.opt.guicursor = ''
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.tabstop = 4
@@ -207,20 +207,20 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
 vim.opt.updatetime = 50
-vim.opt.mouse = ""
+vim.opt.mouse = ''
 vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
-vim.opt.shadafile = "NONE"
+vim.opt.signcolumn = 'yes'
+vim.opt.isfname:append('@-@')
+vim.opt.shadafile = 'NONE'
 vim.g.netrw_banner = 0
 
 -- Keybindings
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "<leader>i", vim.lsp.buf.code_action, { noremap = true, silent = true })
-vim.keymap.set("v", "<leader>y", "\"+y")
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float() end)
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', '<leader>i', vim.lsp.buf.code_action, { noremap = true, silent = true })
+vim.keymap.set('v', '<leader>y', '\'+y')
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>e', function() vim.diagnostic.open_float() end)
 vim.diagnostic.config({
   virtual_text = true,  
   signs = true,        
@@ -229,13 +229,13 @@ vim.diagnostic.config({
 })
 
 -- Harpoon keybindings
-local harpoon = require("harpoon")
-vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<C-j>", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<C-k>", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end)
+local harpoon = require('harpoon')
+vim.keymap.set('n', '<leader>a', function() harpoon:list():add() end)
+vim.keymap.set('n', '<C-e>', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+vim.keymap.set('n', '<C-h>', function() harpoon:list():select(1) end)
+vim.keymap.set('n', '<C-j>', function() harpoon:list():select(2) end)
+vim.keymap.set('n', '<C-k>', function() harpoon:list():select(3) end)
+vim.keymap.set('n', '<C-l>', function() harpoon:list():select(4) end)
 
 -- Telescope keybindings
 local builtin = require('telescope.builtin')
