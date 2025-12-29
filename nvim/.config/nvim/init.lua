@@ -35,24 +35,19 @@ require("lazy").setup({
     lazy = false,
   },
 
-  -- Rose pine
-  { "rose-pine/neovim",
-  name = "rose-pine",
-  config = function() 
-    require("rose-pine").setup({ 
-     extend_background_behind_borders = true,
-     enable = {
-       terminal = true,
-       legacy_highlights = true,
-       migrations = true,
-     },
-     styles = {
-       bold = true,
-       transparency = true,
-     }
-   }) 
-   vim.cmd("colorscheme rose-pine") 
-  end },
+  -- Nord
+  {
+    "shaunsingh/nord.nvim",
+    lazy = false,        
+    config = function()
+      vim.g.nord_contrast = true
+      vim.g.nord_disable_background = true
+      vim.g.nord_uniform_diff_background = true
+      vim.g.nord_bold = true
+
+      require("nord").set()
+    end,
+  },
 
   -- Fugitive
   { "tpope/vim-fugitive" },
