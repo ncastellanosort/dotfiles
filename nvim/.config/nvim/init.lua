@@ -1,92 +1,38 @@
--- Bootstrap Lazy.nvim 
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "https://github.com/folke/lazy.nvim.git",
-    lazypath,
-  })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- Telescope
   {
-    "nvim-telescope/telescope.nvim",
-    tag = "0.1.8",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("telescope").setup({
-        defaults = {
-          buffer_previewer_maker = function(filepath, bufnr, opts)
-            opts = opts or {}
-            
-            vim.loop.fs_open(filepath, "r", 438, function(err, fd)
-              if err then return end
-              vim.loop.fs_fstat(fd, function(err, stat)
-                if err then return end
-                if stat.size > 100000 then
-                  vim.schedule(function()
-                    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, {"File too large"})
-                  end)
-                else
-                  vim.loop.fs_read(fd, stat.size, 0, function(err, data)
-                    if err then return end
-                    vim.schedule(function()
-                      vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(data, "\n"))
-                      pcall(vim.api.nvim_buf_call, bufnr, function()
-                        local ft = vim.filetype.match({ buf = bufnr, filename = filepath })
-                        if ft then
-                          vim.bo[bufnr].filetype = ft
-                          vim.bo[bufnr].syntax = ft
-                        end
-                      end)
-                    end)
-                    vim.loop.fs_close(fd)
-                  end)
-                end
-              end)
-            end)
-          end,
-        },
-      })
-    end,
+    'nvim-telescope/telescope.nvim', tag = 'v0.2.0',
+     dependencies = { 'nvim-lua/plenary.nvim' }
   },
 
   -- Harpoon
   {
     "ThePrimeagen/harpoon",
-    branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("harpoon").setup()
-    end
   },
 
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      local status_ok, configs = pcall(require, "nvim-treesitter.configs")
-      if not status_ok then
-        return
-      end
-      
-      configs.setup {
-        ensure_installed = {
-          "javascript", "typescript", "vue", "python", "html", "c", "java",
-          "lua", "rust", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go"
-        },
-        sync_install = false,
-        auto_install = true,
-        highlight = {
-          enable = true,
-        }
-      }
-    end
+    lazy = false,
   },
 
   -- Rose pine
@@ -94,8 +40,6 @@ require("lazy").setup({
   name = "rose-pine",
   config = function() 
     require("rose-pine").setup({ 
-     variant = "moon",
-     dark_variant = "moon",
      extend_background_behind_borders = true,
      enable = {
        terminal = true,
@@ -104,7 +48,6 @@ require("lazy").setup({
      },
      styles = {
        bold = true,
-       italic = false,
        transparency = true,
      }
    }) 
@@ -114,60 +57,20 @@ require("lazy").setup({
   -- Fugitive
   { "tpope/vim-fugitive" },
 
-  -- LSP config
-  { "neovim/nvim-lspconfig" },
-  { "williamboman/mason.nvim", config = function() require("mason").setup() end },
+  -- Mason
   {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "jdtls",  
-          "ts_ls", "vue_ls", "eslint",
-          "pyright", "gopls", "clangd",
-          "rust_analyzer", "html", "tailwindcss"
-        },
-        automatic_installation = true,
-      })
+    "mason-org/mason.nvim",
+    opts = {}
+  },
 
-      local lsp = vim.lsp
-
-      -- TypeScript
-      lsp.config["ts_ls"] = {
-        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-        init_options = { provideFormatter = false },
-      }
-      lsp.enable("ts_ls")
-
-      -- ESLint
-      lsp.config["eslint"] = {
-        settings = { format = true },
-      }
-      lsp.enable("eslint")
-
-      -- Tailwind
-      lsp.config["tailwindcss"] = {
-        filetypes = {
-          "html", "css", "javascript", "javascriptreact",
-          "typescript", "typescriptreact", "vue", "svelte", "astro"
-        },
-        init_options = {
-          userLanguages = {
-            eelixir = "html-eex",
-            eruby = "erb",
-            javascript = "javascript",
-            javascriptreact = "javascriptreact",
-            typescript = "typescript",
-            typescriptreact = "typescriptreact",
-          },
-        },
-      }
-      lsp.enable("tailwindcss")
-
-      for _, server in ipairs({ "pyright", "gopls", "clangd", "rust_analyzer", "html" }) do
-        lsp.enable(server)
-      end
-    end
+  -- Mason LSP config
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+    dependencies = {
+        { "mason-org/mason.nvim", opts = {} },
+        "neovim/nvim-lspconfig",
+    },
   },
 
   -- Java LSP (jdtls)
@@ -251,12 +154,6 @@ require("lazy").setup({
       jdtls.start_or_attach(config)
       
       local opts = { noremap = true, silent = true, buffer = true }
-      vim.keymap.set("n", "<leader>co", jdtls.organize_imports, opts)
-      vim.keymap.set("n", "<leader>cv", jdtls.extract_variable, opts)
-      vim.keymap.set("v", "<leader>cv", [[<ESC><CMD>lua require('jdtls').extract_variable(true)<CR>]], opts)
-      vim.keymap.set("n", "<leader>cc", jdtls.extract_constant, opts)
-      vim.keymap.set("v", "<leader>cc", [[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]], opts)
-      vim.keymap.set("v", "<leader>cm", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], opts)
     end,
   },
 
