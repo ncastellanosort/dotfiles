@@ -192,6 +192,7 @@ require("lazy").setup({
 })
 
 -- Vim settings
+vim.api.nvim_set_hl(0, "Visual", { bg = "#FFA93B", fg = "#000000" })
 vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
