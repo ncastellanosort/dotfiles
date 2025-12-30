@@ -30,9 +30,9 @@ require("lazy").setup({
 
   -- Treesitter
   {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
+    'nvim-treesitter/nvim-treesitter',
     lazy = false,
+    build = ':TSUpdate'
   },
 
   -- Rose Pine
@@ -247,3 +247,16 @@ vim.keymap.set('n', '<leader>fw', builtin.live_grep)
 
 -- Git status
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
+
+-- Treesitter start
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {"*"},
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    local ft = vim.bo[buf].filetype
+    
+    if ft ~= "" and ft ~= nil then
+      pcall(vim.treesitter.start)
+    end
+  end,
+})
