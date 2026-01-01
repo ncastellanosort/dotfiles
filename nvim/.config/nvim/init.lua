@@ -38,8 +38,8 @@ require("lazy").setup({
   -- Rose Pine
   { "rose-pine/neovim",
   name = "rose-pine",
-  config = function() 
-    require('rose-pine').setup({ 
+  config = function()
+    require('rose-pine').setup({
      extend_background_behind_borders = true,
      enable = {
        terminal = true,
@@ -50,8 +50,8 @@ require("lazy").setup({
        bold = true,
        transparency = true,
      }
-   }) 
-   vim.cmd("colorscheme rose-pine") 
+   })
+   vim.cmd("colorscheme rose-pine")
   end },
 
   -- Fugitive
@@ -79,10 +79,8 @@ require("lazy").setup({
     ft = "java",
     config = function()
       local jdtls = require("jdtls")
-      
       local jdtls_path = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
       local workspace_dir = vim.fn.stdpath("cache") .. "/jdtls-workspace/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-      
       local config = {
         cmd = {
           "/usr/lib/jvm/java-21-openjdk/bin/java",
@@ -99,16 +97,14 @@ require("lazy").setup({
           "-configuration", jdtls_path .. "/config_linux",
           "-data", workspace_dir,
         },
-        
         root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }),
-        
         settings = {
           java = {
             configuration = {
               runtimes = {
                 {
                   name = "JavaSE-1.8",
-                  path = "/usr/lib/jvm/java-8-openjdk", 
+                  path = "/usr/lib/jvm/java-8-openjdk",
                   default = true,
                 },
                 {
@@ -117,22 +113,18 @@ require("lazy").setup({
                 },
               },
             },
-            
             maven = {
               downloadSources = true,
             },
-            
             implementationsCodeLens = {
               enabled = true,
             },
             referencesCodeLens = {
               enabled = true,
             },
-            
             format = {
               enabled = true,
             },
-            
             imports = {
               gradle = {
                 enabled = true,
@@ -143,17 +135,12 @@ require("lazy").setup({
             },
           },
         },
-        
         capabilities = require("cmp_nvim_lsp").default_capabilities(),
-        
         init_options = {
           bundles = {},
         },
       }
-      
       jdtls.start_or_attach(config)
-      
-      local opts = { noremap = true, silent = true, buffer = true }
     end,
   },
 
@@ -224,10 +211,10 @@ vim.keymap.set("v", "<leader>y", "\"+y")
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float() end)
 vim.diagnostic.config({
-  virtual_text = true,  
-  signs = true,        
-  underline = true,    
-  update_in_insert = false, 
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
 })
 
 -- Harpoon keybindings
@@ -255,7 +242,6 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   callback = function()
     local buf = vim.api.nvim_get_current_buf()
     local ft = vim.bo[buf].filetype
-    
     if ft ~= "" and ft ~= nil then
       pcall(vim.treesitter.start)
     end
