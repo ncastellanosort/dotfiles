@@ -48,7 +48,7 @@ require("lazy").setup({
      },
      styles = {
        bold = true,
-       transparency = true,
+       -- transparency = true,
      }
    })
    vim.cmd("colorscheme rose-pine")
@@ -179,6 +179,8 @@ require("lazy").setup({
 })
 
 -- Vim settings
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.api.nvim_set_hl(0, "Visual", { bg = "#FFA93B", fg = "#000000" })
 vim.opt.guicursor = ""
 vim.opt.nu = true
