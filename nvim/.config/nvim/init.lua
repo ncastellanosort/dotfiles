@@ -138,7 +138,6 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<leader>i", vim.lsp.buf.code_action, { noremap = true, silent = true })
 vim.keymap.set("v", "<leader>y", "\"+y")
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float() end)
 vim.diagnostic.config({
   virtual_text = true,
@@ -165,6 +164,12 @@ vim.keymap.set('n', '<leader>fw', builtin.live_grep)
 
 -- Git status
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
+
+-- LSP
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
+vim.keymap.set("n", "gr", vim.lsp.buf.references)
+vim.keymap.set("n", "K", vim.lsp.buf.hover)
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
 
 -- Treesitter start
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
