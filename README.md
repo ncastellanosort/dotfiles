@@ -26,24 +26,33 @@ sudo pacman -S git stow
 
 ## Setup on a NEW machine (Migration)
 
-### 1. Clone the repository
+### Quick setup (recommended)
+
+```bash
+bash setup.sh
+```
+
+That’s it. The script checks prerequisites, clones the repo, and stows all packages.
+
+### Manual setup
+
+#### 1. Clone the repository
 
 ```bash
 git clone git@github.com:ncastellanosort/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-
 ```
 
-### 2. Apply configurations
+#### 2. Apply configurations
 
 ```bash
 stow nvim
 stow tmux
 stow kitty
-
+# ... or stow individual packages as needed
 ```
 
-That’s it. Stow will create symlinks like:
+Stow creates symlinks like:
 
 * `~/.config/nvim`  -> `~/.dotfiles/nvim`
 * `~/.config/kitty` -> `~/.dotfiles/kitty/.config/kitty`
