@@ -3,6 +3,7 @@ set -euo pipefail
 
 DOTFILES_DIR="$HOME/.dotfiles"
 PACKAGES=(nvim tmux kitty hypr waybar wofi zsh)
+ROOT_PACKAGES=(greetd)  # target / (system configs), require sudo
 
 # ── Prerequisites ──────────────────────────────────────────────
 command -v git >/dev/null 2>&1  || { echo "ERROR: git is required. Install it first."; exit 1; }
@@ -26,5 +27,15 @@ for pkg in "${PACKAGES[@]}"; do
     fi
 done
 
+# ── Stow system-level packages (target /) ─────────────────────
+for pkg in "${ROOT_PACKAGES[@]}"; do
+    if [ -d "$pkg" ] || [ -f "$pkg" ]; then
+        echo "Stowing $pkg (system) ..."
+        sudo stow -v --target=/ "$pkg"
+    else
+        echo "Skipping $pkg (not found in repo)"
+    fi
+done
+
 echo ""
-echo "Done. All dotfiles are now linked into \$HOME."
+echo "Done. All dotfiles are now linked into \$HOME and /."
