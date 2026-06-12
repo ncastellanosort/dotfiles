@@ -12,7 +12,7 @@ command -v stow >/dev/null 2>&1 || { echo "ERROR: GNU Stow is required. Install 
 # ── Clone if needed ────────────────────────────────────────────
 if [ ! -d "$DOTFILES_DIR" ]; then
     echo "Cloning dotfiles into $DOTFILES_DIR ..."
-    git clone https://github.com/ncastellanosort/dotfiles.git "$DOTFILES_DIR"
+    git clone git@github.com:ncastellanosort/dotfiles.git "$DOTFILES_DIR"
 fi
 
 cd "$DOTFILES_DIR"
