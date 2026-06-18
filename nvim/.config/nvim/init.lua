@@ -36,6 +36,7 @@ require("lazy").setup({
   },
 
   -- Rose Pine
+  --[[
   { "rose-pine/neovim",
   name = "rose-pine",
   config = function()
@@ -53,6 +54,7 @@ require("lazy").setup({
    })
    vim.cmd("colorscheme rose-pine")
   end },
+  ]]
 
   -- Fugitive
   { "tpope/vim-fugitive" },
@@ -106,6 +108,9 @@ require("lazy").setup({
     end
   },
 })
+
+-- Theme
+vim.cmd('colorscheme lunaperche')
 
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
