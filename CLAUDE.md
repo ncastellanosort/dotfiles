@@ -13,7 +13,7 @@ Personal dotfiles for an Arch Linux + Hyprland (Wayland) system, managed with **
 cd ~/.dotfiles
 stow <package>          # create symlinks for one package
 stow -v <package>       # verbose: see each symlink
-bash setup.sh           # stow all packages (nvim tmux kitty hypr waybar wofi zsh)
+bash setup.sh           # stow all packages (nvim tmux ghostty hypr waybar wofi zsh)
 ```
 
 ### Removing configs
@@ -43,7 +43,7 @@ Each package directory mirrors the path fragment that should appear under the ta
 - **System packages** (`greetd`): target is `/`. Use `sudo stow --target=/ <package>`. These are listed in `ROOT_PACKAGES` in `setup.sh`.
 
 - **XDG tools** use `package/.config/<app>/<files>` — stow creates `~/.config/<app>` as a symlink.
-  - `hypr/.config/hypr/`, `kitty/.config/kitty/`, `nvim/.config/nvim/`, `waybar/.config/waybar/`, `wofi/.config/wofi/`
+  - `hypr/.config/hypr/`, `ghostty/.config/ghostty/`, `nvim/.config/nvim/`, `waybar/.config/waybar/`, `wofi/.config/wofi/`
 - **Non-XDG tools** place dotfiles directly at `package/.<file>` — stow creates `~/.<file>`.
   - `tmux/.tmux.conf`, `zsh/.zshrc`
 - **Mixed packages** (`tmux`): combines a top-level dotfile (`.tmux.conf`) with XDG config paths (`.config/tmux/plugins/`). Stow handles both correctly.
@@ -54,7 +54,7 @@ Each package directory mirrors the path fragment that should appear under the ta
 |---------|------|-----------|
 | `greetd` | greetd login manager (system config) | `etc/greetd/config.toml` |
 | `hypr` | Hyprland compositor + Hyprlock + Hyprpaper | `hyprland.conf`, `hyprlock.conf`, `hyprpaper.conf`, `scripts/toggle_waybar.sh` |
-| `kitty` | Kitty terminal | `kitty.conf` |
+| `ghostty` | Ghostty terminal | `config` |
 | `nvim` | Neovim (lazy.nvim plugin manager) | `init.lua` (all config), `lazy-lock.json` (pinned plugin commits) |
 | `tmux` | Tmux multiplexer + Catppuccin theme | `.tmux.conf` (prefix `C-s`, Catppuccin mocha), `.config/tmux/plugins/catppuccin/tmux/` (v2.3.0) |
 | `waybar` | Waybar status bar | `config`, `style.css`, `power_menu.xml` |
@@ -64,9 +64,9 @@ Each package directory mirrors the path fragment that should appear under the ta
 ### Design conventions
 
 - **Dark theme** across all tools: black backgrounds (`#000000`, `#0a0c0f`, `#0D0D0D`), white text/borders.
-- **Font**: `CaskaydiaCove Nerd Font` (Kitty), `FiraCode Nerd Font` (other tools). Font size 20.0 in Kitty.
-- **Colorschemes**: Kitty uses solid `#0a0c0f` background. Tmux uses Catppuccin Mocha via plugin. Neovim uses `lunaperche`. Zsh uses `garyblessington` Oh My Zsh theme.
-- **Wayland-native toolchain**: Hyprland, Waybar, Wofi, Kitty, Hyprlock, Hyprpaper, cliphist, wl-clipboard.
+- **Font**: `FiraCode Nerd Font` across all tools. Font size 22 in Ghostty.
+- **Colorschemes**: Ghostty uses default dark background. Tmux uses Catppuccin Mocha via plugin. Neovim uses `lunaperche`. Zsh uses `garyblessington` Oh My Zsh theme.
+- **Wayland-native toolchain**: Hyprland, Waybar, Wofi, Ghostty, Hyprlock, Hyprpaper, cliphist, wl-clipboard.
 - **Single-file configs** where practical — Neovim uses a single `init.lua`; each tool has 1-3 files.
 - **Claude Code routes through DeepSeek API** — configured via env vars in `.zshrc`. API keys are sourced from `~/.config/secrets/anthropic.env` (not tracked).
 

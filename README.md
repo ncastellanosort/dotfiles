@@ -4,7 +4,7 @@ This repository contains my personal dotfiles managed with **GNU Stow**.
 
 ## Core Concept
 
-* Each directory in this repo is a "package" (`nvim`, `tmux`, `kitty`, etc).
+* Each directory in this repo is a "package" (`nvim`, `tmux`, `ghostty`, etc).
 * Stow creates symlinks from this repo into `$HOME`.
 * The real files live **ONLY** in this repository.
 
@@ -48,14 +48,14 @@ cd ~/.dotfiles
 ```bash
 stow nvim
 stow tmux
-stow kitty
+stow ghostty
 # ... or stow individual packages as needed
 ```
 
 Stow creates symlinks like:
 
 * `~/.config/nvim`  -> `~/.dotfiles/nvim`
-* `~/.config/kitty` -> `~/.dotfiles/kitty/.config/kitty`
+* `~/.config/ghostty` -> `~/.dotfiles/ghostty/.config/ghostty`
 
 > [!IMPORTANT]
 > You should **NOT** move files from `~/.config` on a new machine. New machines start empty; stow only creates symlinks.
@@ -115,13 +115,13 @@ stow -D nvim
 **Example:**
 
 ```bash
-stow --adopt kitty
+stow --adopt ghostty
 
 ```
 
 **What this does:**
 
-* Moves files from `~/.config/kitty` into `~/.dotfiles/kitty/...`.
+* Moves files from `~/.config/ghostty` into `~/.dotfiles/ghostty/...`.
 * Replaces them with symlinks.
 
 > [!CAUTION]
@@ -139,14 +139,14 @@ stow --adopt kitty
 ### 1. Create the package structure
 
 ```bash
-mkdir -p ~/.dotfiles/kitty/.config/kitty
+mkdir -p ~/.dotfiles/ghostty/.config/ghostty
 
 ```
 
 ### 2. Move existing config (once)
 
 ```bash
-mv ~/.config/kitty/* ~/.dotfiles/kitty/.config/kitty/
+mv ~/.config/ghostty/* ~/.dotfiles/ghostty/.config/ghostty/
 
 ```
 
@@ -154,11 +154,11 @@ mv ~/.config/kitty/* ~/.dotfiles/kitty/.config/kitty/
 
 ```bash
 cd ~/.dotfiles
-stow kitty
+stow ghostty
 
 ```
 
-After this, future machines only need: `stow kitty`.
+After this, future machines only need: `stow ghostty`.
 
 ---
 

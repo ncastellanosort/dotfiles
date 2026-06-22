@@ -2,7 +2,7 @@
 set -euo pipefail
 
 DOTFILES_DIR="$HOME/.dotfiles"
-PACKAGES=(nvim tmux kitty hypr waybar wofi zsh)
+PACKAGES=(nvim tmux ghostty hypr waybar wofi zsh)
 ROOT_PACKAGES=(greetd)  # target / (system configs), require sudo
 
 # ── Prerequisites ──────────────────────────────────────────────
