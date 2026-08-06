@@ -15,14 +15,14 @@
 hl.monitor({
     output   = "DP-1",
     mode     = "1920x1080@144.00",
-    position = "1x0",
+    position = "0x0",
     scale    = "1",
 })
 
 hl.monitor({
     output   = "eDP-1",
     mode     = "highrr",
-    position = "0x0",
+    position = "1920x0",
     scale    = "2",
 })
 
@@ -237,7 +237,11 @@ end
 
 -- Workspaces fijos al monitor DP-1 (antes: workspace=N,monitor:DP-1)
 for i = 1, 6 do
-    hl.workspace_rule({ workspace = tostring(i), monitor = "DP-1" })
+    hl.workspace_rule({
+        workspace = tostring(i),
+        monitor   = "DP-1",
+        default   = (i == 1),
+    })
 end
 
 -- Mover/redimensionar ventanas con mainMod + click izq/der y arrastrar
