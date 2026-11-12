@@ -68,7 +68,6 @@ Each package directory mirrors the path fragment that should appear under the ta
 - **Colorschemes**: Ghostty uses default dark background. Tmux uses Catppuccin Mocha via plugin. Neovim uses `lunaperche`. Zsh uses `garyblessington` Oh My Zsh theme.
 - **Wayland-native toolchain**: Hyprland, Waybar, Wofi, Ghostty, Hyprlock, Hyprpaper, cliphist, wl-clipboard.
 - **Single-file configs** where practical — Neovim uses a single `init.lua`; each tool has 1-3 files.
-- **Claude Code routes through DeepSeek API** — configured via env vars in `.zshrc`. API keys are sourced from `~/.config/secrets/anthropic.env` (not tracked).
 
 ### Neovim plugin management
 
