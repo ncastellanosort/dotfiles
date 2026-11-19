@@ -111,6 +111,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim="nvim"
 alias cat="bat"
+alias genpass='python3 -c "import secrets, string; chars = string.ascii_letters + string.digits + string.punctuation; print(\"\".join(secrets.choice(chars) for _ in range(32)))"'
 
 export PATH="$HOME/.local/bin:$PATH"
 
