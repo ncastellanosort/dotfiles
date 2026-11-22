@@ -22,6 +22,14 @@ sudo pacman -S git stow
 
 ```
 
+**Optional (audio preset, `easyeffects` package):**
+
+```bash
+sudo pacman -S easyeffects lsp-plugins-lv2 calf
+```
+
+The `easyeffects` package needs the plugins above, and Hyprland starts it with `easyeffects --service-mode`. The autoload rule in that package is tied to this machine's audio device name (`alsa_output.pci-0000_00_1f.3.analog-stereo`); on different hardware, rename that file to match `pactl list short sinks`, or re-select the preset in the EasyEffects UI.
+
 ---
 
 ## Setup on a NEW machine (Migration)

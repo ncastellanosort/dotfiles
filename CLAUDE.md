@@ -13,7 +13,7 @@ Personal dotfiles for an Arch Linux + Hyprland (Wayland) system, managed with **
 cd ~/.dotfiles
 stow <package>          # create symlinks for one package
 stow -v <package>       # verbose: see each symlink
-bash setup.sh           # stow all packages (nvim tmux ghostty hypr waybar wofi zsh)
+bash setup.sh           # stow all packages (nvim tmux ghostty hypr waybar wofi zsh easyeffects)
 ```
 
 ### Removing configs
@@ -60,6 +60,7 @@ Each package directory mirrors the path fragment that should appear under the ta
 | `waybar` | Waybar status bar | `config`, `style.css`, `power_menu.xml` |
 | `wofi` | Wofi launcher | `config`, `style.css` |
 | `zsh` | Zsh + Oh My Zsh | `.zshrc`, `clean_arch.sh`, `clear_clipboard.sh` |
+| `easyeffects` | EasyEffects audio preset for the laptop speakers (ASUS Vivobook K3400PA, Harman Kardon) | `.local/share/easyeffects/output/Vivobook-HK.json`, `.local/share/easyeffects/autoload/output/*.json` |
 
 ### Design conventions
 

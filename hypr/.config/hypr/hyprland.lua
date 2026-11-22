@@ -45,6 +45,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("wl-paste --watch cliphist store")
     hl.exec_cmd("~/clear_clipboard.sh")
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    hl.exec_cmd("easyeffects --service-mode") -- mejora de audio parlantes (preset Vivobook-HK)
 end)
 
 -------------------------------
