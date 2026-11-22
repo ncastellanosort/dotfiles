@@ -6,7 +6,7 @@
 
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["memory", "pulseaudio", "network", "battery", "bluetooth", "tray", "custom/power"],
+    "modules-right": ["memory", "custom/volume", "network", "battery", "bluetooth", "tray", "custom/power"],
 
     "hyprland/workspaces": {
         "format": "<span size='larger'>{icon}</span>",
@@ -32,11 +32,10 @@
         "format": "{:%d - %H:%M}"
     },
 
-    "pulseaudio": {
-        "format": "VOL {volume}%",
-        "format-bluetooth": "VOL {volume}% BL",
-        "format-bluetooth-muted": "VOL MUT BL",
-        "format-muted": "VOL MUT",
+    "custom/volume": {
+        "exec": "~/.config/hypr/scripts/volume.sh status",
+        "signal": 8,
+        "interval": 30,
         "on-click": "pavucontrol"
     },
 
