@@ -22,7 +22,7 @@ hl.monitor({
 hl.monitor({
     output   = "eDP-1",
     mode     = "highrr",
-    position = "1920x0",
+    position = "240x1080", -- debajo de DP-1, centrada (1920 - 1440) / 2
     scale    = "2",
 })
 
@@ -84,7 +84,7 @@ hl.config({
 
     decoration = {
         rounding       = 0,
-        rounding_power = 0,
+        rounding_power = 1,
 
         active_opacity   = 1.0,
         inactive_opacity = 1.0,
